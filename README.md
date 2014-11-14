@@ -1,5 +1,4 @@
-Role Name
-=========
+# mrcrilly.maven
 
 Installs the latest Apache Maven binary. Requires Java, but installs it via geerlingguy.java (which is a role dependency)
 
