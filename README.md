@@ -1,7 +1,7 @@
 Role Name
 =========
 
-Installs the latest Apache Marven binary. Requires Java, but installs it via geerlingguy.java (which is a role dependency)
+Installs the latest Apache Maven binary. Requires Java, but installs it via geerlingguy.java (which is a role dependency)
 
 Requirements
 ------------
@@ -11,9 +11,9 @@ None.
 Role Variables
 --------------
 
-- mrcrilly_marven_manage_software (default: true)
-- mrcrilly_marven_java_version (default: 1.7.0)
-- mrcrilly_marven_version (default: 3.2.3)
+- mrcrilly_maven_manage_software (default: true)
+- mrcrilly_maven_java_version (default: 1.7.0)
+- mrcrilly_maven_version (default: 3.2.3)
 
 Dependencies
 ------------
@@ -25,7 +25,7 @@ Example Playbook
 
     - hosts: servers
       roles:
-         - { role: mrcrilly.marven }
+         - { role: mrcrilly.maven }
 
 License
 -------
