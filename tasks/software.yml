@@ -1,0 +1,39 @@
+---
+
+- name: Install OpenJDK
+  yum:
+    name: "java-{{mrcrilly_maven_java_version}}-openjdk"
+    state: present
+
+- name: Install OpenJDK Development
+  yum:
+    name: "java-{{mrcrilly_maven_java_version}}-openjdk-devel"
+    state: present
+
+- name: Do we have a Maven installation?
+  stat: path=/usr/local/apache-maven/bin/mvn
+  register: have_maven
+
+- name: Download the latest Maven binaries (assumes Maven 3)
+  get_url:
+    url: "http://www.mirrorservice.org/sites/ftp.apache.org/maven/maven-3/{{mrcrilly_maven_version}}/binaries/apache-maven-{{mrcrilly_maven_version}}-bin.tar.gz"
+    dest: "/tmp/apache-maven-{{mrcrilly_maven_version}}-bin.tar.gz"
+  when: not have_maven
+
+- name: Extract Maven to the new location
+  command: tar -xzf "apache-maven-{{mrcrilly_maven_version}}-bin.tar.gz" -C /usr/local/ chdir=/tmp creates="/usr/local/apache-maven"
+
+- name: Rename the directory
+  command: mv "/usr/local/apache-maven-{{mrcrilly_maven_version}}" /usr/local/apache-maven creates=/usr/local/apache-maven
+
+- name: Configure directory permissions
+  shell: find . -type d -exec chmod 755 {} \; chdir=/usr/local/apache-maven
+
+- name: Configure file permissions
+  shell: find . -type f -exec chmod 644 {} \; chdir=/usr/local/apache-maven
+
+- name: Configure executable file permissions
+  shell: find . -type f -exec chmod 755 {} \; chdir=/usr/local/apache-maven/bin
+
+- name: Add Maven's ./bin to the system path
+  copy: src=maven.sh dest=/etc/profile.d/maven.sh owner=root group=root mode=644

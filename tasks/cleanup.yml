@@ -1,0 +1,4 @@
+---
+
+- name: Remove the Maven archive
+  file: path="/tmp/apache-maven-{{mrcrilly_maven_version}}-bin.tar.gz" state=absent

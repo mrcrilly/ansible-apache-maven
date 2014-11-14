@@ -1,0 +1,13 @@
+---
+
+- include: software.yml
+  tags:
+    - mrcrilly_maven
+    - mrcrilly_maven_software
+  when: mrcrilly_maven_manage_software | default(true)
+
+- include: cleanup.yml
+  tags:
+    - mrcrilly_maven
+    - mrcrilly_maven_cleanup
+  when: mrcrilly_maven_cleanup | default(true)

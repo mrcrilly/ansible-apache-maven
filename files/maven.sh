@@ -1,0 +1,1 @@
+PATH=$PATH:/usr/local/apache-maven/bin
